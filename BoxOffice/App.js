@@ -7,14 +7,10 @@
  */
 
 import React from 'react';
-import type {Node} from 'react';
-import BoxOffice from './src/screens/BoxOffice';
+import type { Node } from 'react';
+import RootContainer from './src/navigations/RootContainer';
 const App: () => Node = () => {
-  return (
-    <>
-      <BoxOffice />
-    </>
-  );
+  return <RootContainer />
 };
 
 export default App;
