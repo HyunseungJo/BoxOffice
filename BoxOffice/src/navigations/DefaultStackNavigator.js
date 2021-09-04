@@ -8,8 +8,16 @@ const Stack = createNativeStackNavigator();
 export default function DefaultStackNavigator() {
   return (
     <>
-      <Stack.Navigator>
-        <Stack.Screen name={"BoxOffice"} component={BoxOffice} />
+      <Stack.Navigator screenOptions={{
+        headerShown: false
+      }}>
+        <Stack.Screen
+          name={"BoxOffice"}
+          component={BoxOffice}
+          options={{
+            title: "박스오피스"
+          }}
+        />
         <Stack.Screen name={"MovieDetail"} component={MovieDetail} />
         <Stack.Screen name={"SearchResult"} component={SearchResult} />
       </Stack.Navigator>

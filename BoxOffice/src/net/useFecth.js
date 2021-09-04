@@ -22,3 +22,4 @@ export const prefetch = function (url, params = {}) {
 export default function useFetch(url, params = {}) {
     return useSwr(`${url}?${getQueryString(params)}`, fetcher);
 }
+

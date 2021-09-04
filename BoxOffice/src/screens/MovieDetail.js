@@ -6,20 +6,23 @@ import { useFocusEffect, useRoute } from '@react-navigation/core'
 import { ActivityIndicator, Pressable } from 'react-native'
 import axios from 'axios'
 import Link from '../components/ui/Link'
+import useFetch from '../net/useFecth'
 export default function ({ route, navigation }) {
-  const [detail, setDetail] = useState(null)
-  useFocusEffect(useCallback(() => {
-    const url = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json"
-    axios.get(url, {
-      params: {
-        key: "9c7c64460a34debed6e6dc982b99d76b",
-        movieCd: route.params.movieCd
-      }
-    })
-      .then(response => setDetail(response.data.movieInfoResult.movieInfo))
-      .catch(console.warn)
-  }, []))
-  if (!detail) return <ActivityIndicator />
+  const url = "https://www.kobis.or.kr/kobisopenapi/webservice/rest/movie/searchMovieInfo.json"
+  const { data, error } = useFetch(url, {
+    key: "9c7c64460a34debed6e6dc982b99d76b",
+    movieCd: route.params.movieCd
+  })
+  useEffect(() => {
+    if (data) {
+      navigation.setOptions({
+        title: data.movieInfoResult.movieInfo.movieNm
+      }, [data])
+    }
+  })
+  if (error) return <Paragraph>{JSON.stringify(error)}</Paragraph>
+  if (!data) return <ActivityIndicator />
+  const detail = data.movieInfoResult.movieInfo
   return (
     <>
       <Row>
